@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from './ui/Dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
 import { CourseForm } from './CourseForm';
 import { useUpdateCourse } from '../hooks/useCourses';
 import type { Course, CreateCourseDto, UpdateCourseDto } from '../types/course';
@@ -27,10 +27,9 @@ export const CourseEditDialog = ({ open, onOpenChange, course, onSuccess }: Cour
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Edit Course</DialogTitle>
-          <DialogClose onClick={() => onOpenChange(false)} />
-        </DialogHeader>
+         <DialogHeader>
+           <DialogTitle>Edit Course</DialogTitle>
+         </DialogHeader>
         {course && (
           <CourseForm
             course={course}

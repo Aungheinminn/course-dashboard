@@ -1,15 +1,14 @@
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, Plus, Loader2 } from "lucide-react";
-import { Button } from "../components/ui/Button";
+import { Button } from "../components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogClose,
-} from "../components/ui/Dialog";
-import { ConfirmDialog } from "../components/ui/ConfirmDialog";
+} from "../components/ui/dialog";
+import { ConfirmDialog } from "../components/ui/confirm-dialog";
 import { LessonForm } from "../components/LessonForm";
 import { LessonEditDialog } from "../components/LessonEditDialog";
 import { LessonList } from "../components/LessonList";
@@ -126,12 +125,11 @@ export const ModuleLessonsPage = () => {
         </div>
       </div>
 
-      <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Create New Lesson</DialogTitle>
-            <DialogClose onClick={() => setIsCreateOpen(false)} />
-          </DialogHeader>
+       <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
+         <DialogContent>
+           <DialogHeader>
+             <DialogTitle>Create New Lesson</DialogTitle>
+           </DialogHeader>
           <LessonForm
             moduleId={moduleId || ""}
             courseId={courseId || ""}

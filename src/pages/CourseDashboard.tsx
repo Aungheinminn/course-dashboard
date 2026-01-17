@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Plus, Loader2 } from 'lucide-react';
-import { Button } from '../components/ui/Button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from '../components/ui/Dialog';
-import { ConfirmDialog } from '../components/ui/ConfirmDialog';
+import { Button } from "../components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../components/ui/dialog";
+import { ConfirmDialog } from "../components/ui/confirm-dialog";
 import { CourseForm } from '../components/CourseForm';
 import { CourseEditDialog } from '../components/CourseEditDialog';
 import { CourseGrid } from '../components/CourseGrid';
@@ -105,11 +105,10 @@ export const CourseDashboard = () => {
       </div>
 
       <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Create New Course</DialogTitle>
-            <DialogClose onClick={() => setIsCreateOpen(false)} />
-          </DialogHeader>
+         <DialogContent>
+           <DialogHeader>
+             <DialogTitle>Create New Course</DialogTitle>
+           </DialogHeader>
           <CourseForm
             onSubmit={handleCreate}
             onCancel={() => setIsCreateOpen(false)}

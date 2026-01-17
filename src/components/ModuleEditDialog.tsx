@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from './ui/Dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
 import { ModuleForm } from './ModuleForm';
 import { useUpdateModule } from '../hooks/useModules';
 import type { Module, CreateModuleDto, UpdateModuleDto } from '../types/module';
@@ -28,10 +28,9 @@ export const ModuleEditDialog = ({ open, onOpenChange, module, courseId, onSucce
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Edit Module</DialogTitle>
-          <DialogClose onClick={() => onOpenChange(false)} />
-        </DialogHeader>
+         <DialogHeader>
+           <DialogTitle>Edit Module</DialogTitle>
+         </DialogHeader>
         {module && (
           <ModuleForm
             courseId={courseId}

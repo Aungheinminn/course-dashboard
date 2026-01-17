@@ -1,5 +1,5 @@
-import { CourseCard } from './CourseCard';
-import type { Course } from '../types/course';
+import { CourseCard } from "./CourseCard";
+import type { Course } from "../types/course";
 
 interface CourseGridProps {
   courses: Course[];
@@ -26,8 +26,12 @@ export const CourseGrid = ({ courses, onEdit, onDelete }: CourseGridProps) => {
             />
           </svg>
         </div>
-        <h3 className="text-lg font-medium text-gray-900 mb-2">No courses found</h3>
-        <p className="text-gray-500">Create your first course to get started.</p>
+        <h3 className="text-lg font-medium text-gray-900 mb-2">
+          No courses found
+        </h3>
+        <p className="text-gray-500">
+          Create your first course to get started.
+        </p>
       </div>
     );
   }

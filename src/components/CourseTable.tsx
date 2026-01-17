@@ -1,5 +1,5 @@
 import { Edit, Trash2, Eye } from "lucide-react";
-import { Button } from "./ui/Button";
+import { Button } from "./ui/button";
 import type { Course } from "../types/course";
 
 interface CourseTableProps {

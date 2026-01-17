@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
-import { Button } from './ui/Button';
-import { Input } from './ui/Input';
-import { Label } from './ui/Label';
-import { Select } from './ui/Select';
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
 import type { Course, CreateCourseDto, UpdateCourseDto } from '../types/course';
 import { useAuth } from '../lib/utils/useAuth';
 
@@ -66,19 +65,20 @@ export const CourseForm = ({ course, onSubmit, onCancel, isLoading }: CourseForm
         />
       </div>
 
-      <div>
-        <Label htmlFor="level">Level *</Label>
-        <Select
-          id="level"
-          value={formData.level}
-          onChange={(e) => setFormData({ ...formData, level: e.target.value })}
-          required
-        >
-          <option value="Beginner">Beginner</option>
-          <option value="Intermediate">Intermediate</option>
-          <option value="Advanced">Advanced</option>
-        </Select>
-      </div>
+       <div>
+         <Label htmlFor="level">Level *</Label>
+         <select
+           id="level"
+           value={formData.level}
+           onChange={(e) => setFormData({ ...formData, level: e.target.value })}
+           required
+           className="flex w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm ring-offset-white placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+         >
+           <option value="Beginner">Beginner</option>
+           <option value="Intermediate">Intermediate</option>
+           <option value="Advanced">Advanced</option>
+         </select>
+       </div>
 
       <div>
         <Label htmlFor="thumbnail">Thumbnail URL</Label>

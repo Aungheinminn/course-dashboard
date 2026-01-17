@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Edit, Trash2, Loader2 } from 'lucide-react';
-import { Button } from '../components/ui/Button';
-import { ConfirmDialog } from '../components/ui/ConfirmDialog';
+import { Button } from "../components/ui/button";
+import { ConfirmDialog } from "../components/ui/confirm-dialog";
 import { CourseEditDialog } from '../components/CourseEditDialog';
 import { useCourse, useDeleteCourse } from '../hooks/useCourses';
 import type { Course } from '../types/course';

@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Plus, Loader2, ArrowLeft } from 'lucide-react';
-import { Button } from '../components/ui/Button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from '../components/ui/Dialog';
-import { ConfirmDialog } from '../components/ui/ConfirmDialog';
+import { Button } from "../components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../components/ui/dialog";
+import { ConfirmDialog } from "../components/ui/confirm-dialog";
 import { ModuleForm } from '../components/ModuleForm';
 import { ModuleEditDialog } from '../components/ModuleEditDialog';
 import { ModuleList } from '../components/ModuleList';
@@ -117,12 +117,11 @@ export const CourseModulesPage = () => {
         </div>
       </div>
 
-      <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Create New Module</DialogTitle>
-            <DialogClose onClick={() => setIsCreateOpen(false)} />
-          </DialogHeader>
+       <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
+         <DialogContent>
+           <DialogHeader>
+             <DialogTitle>Create New Module</DialogTitle>
+           </DialogHeader>
           <ModuleForm
             courseId={courseId || ''}
             onSubmit={handleCreate}

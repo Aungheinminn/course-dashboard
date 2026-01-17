@@ -21,9 +21,16 @@ import {
   InsertFrontmatter,
   frontmatterPlugin,
   InsertAdmonition,
+  codeBlockPlugin,
+  codeMirrorPlugin,
+  headingsPlugin,
+  listsPlugin,
+  linkPlugin,
+  quotePlugin,
+  markdownShortcutPlugin,
+  InsertCodeBlock,
 } from "@mdxeditor/editor";
 import "@mdxeditor/editor/style.css";
-import { useState } from "react";
 
 interface MarkdownEditorProps {
   content: string;
@@ -31,21 +38,51 @@ interface MarkdownEditorProps {
 }
 
 export const MarkdownEditor = ({ content, onChange }: MarkdownEditorProps) => {
-  const [markdowns, setMarkdowns] = useState<string>(content);
-  const handleChange = (markdown: string) => {
-    setMarkdowns(markdown);
-    onChange(markdown);
-  };
   return (
     <div className="w-full h-[calc(100vh-150px)]">
       <MDXEditor
         className="w-full h-full overflow-y-auto"
+        contentEditableClassName="prose"
+        markdown={content}
+        onChange={onChange}
         plugins={[
+          // Core plugins for markdown features
+          headingsPlugin({ allowedHeadingLevels: [1, 2, 3, 4, 5, 6] }),
+          listsPlugin(),
+          linkPlugin(),
+          quotePlugin(),
+          markdownShortcutPlugin(),
+          // Code block plugins
+          codeBlockPlugin({ defaultCodeBlockLanguage: "javascript", }),
+          codeMirrorPlugin({
+            codeBlockLanguages: {
+              js: "JavaScript",
+              javascript: "JavaScript",
+              ts: "TypeScript",
+              typescript: "TypeScript",
+              tsx: "TypeScript (JSX)",
+              jsx: "JavaScript (JSX)",
+              html: "HTML",
+              css: "CSS",
+              markdown: "Markdown",
+              md: "Markdown",
+              text: "Plain Text",
+            },
+          }),
+          // Other plugins
           directivesPlugin({
             directiveDescriptors: [AdmonitionDirectiveDescriptor],
           }),
+          tablePlugin(),
+          imagePlugin(),
+          thematicBreakPlugin(),
+          frontmatterPlugin(),
+          diffSourcePlugin({
+            viewMode: "rich-text",
+            diffMarkdown: content,
+          }),
           toolbarPlugin({
-            toolbarClassName: "my-classname",
+            toolbarClassName: "toolbar",
             toolbarContents: () => (
               <DiffSourceToggleWrapper>
                 <UndoRedo />
@@ -54,6 +91,7 @@ export const MarkdownEditor = ({ content, onChange }: MarkdownEditorProps) => {
                 <StrikeThroughSupSubToggles />
                 <HighlightToggle />
                 <CodeToggle />
+                <InsertCodeBlock />
                 <ListsToggle />
                 <InsertTable />
                 <InsertImage />
@@ -63,18 +101,7 @@ export const MarkdownEditor = ({ content, onChange }: MarkdownEditorProps) => {
               </DiffSourceToggleWrapper>
             ),
           }),
-          tablePlugin(),
-          imagePlugin(),
-          thematicBreakPlugin(),
-          frontmatterPlugin(),
-          diffSourcePlugin({
-            diffMarkdown: markdowns,
-            viewMode: "rich-text",
-            readOnlyDiff: true,
-          }),
         ]}
-        markdown={markdowns}
-        onChange={(markdown) => handleChange(markdown)}
       />
     </div>
   );

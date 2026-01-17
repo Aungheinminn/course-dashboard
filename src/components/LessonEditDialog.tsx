@@ -3,8 +3,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogClose,
-} from "./ui/Dialog";
+} from "./ui/dialog";
 import { LessonForm } from "./LessonForm";
 import { useUpdateLesson } from "../hooks/useLessons";
 import type { Lesson, CreateLessonDto, UpdateLessonDto } from "../types/lesson";
@@ -45,10 +44,9 @@ export const LessonEditDialog = ({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Edit Lesson</DialogTitle>
-          <DialogClose onClick={() => onOpenChange(false)} />
-        </DialogHeader>
+         <DialogHeader>
+           <DialogTitle>Edit Lesson</DialogTitle>
+         </DialogHeader>
         {lesson && (
           <LessonForm
             moduleId={moduleId}

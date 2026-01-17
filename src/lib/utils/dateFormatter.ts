@@ -39,11 +39,11 @@ export const formatDateTime = (isoString: string | undefined): string => {
   });
 };
 
-export const formatDateShort = (isoString: string | undefined): string => {
-  if (!isoString) return '';
+export const formatDateShort = (date: string | Date | undefined): string => {
+  if (!date) return '';
   
-  const date = new Date(isoString);
-  return date.toLocaleDateString('en-US', {
+  const dateObj = typeof date === 'string' ? new Date(date) : date;
+  return dateObj.toLocaleDateString('en-US', {
     month: 'short',
     day: 'numeric',
     year: 'numeric'

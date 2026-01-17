@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
-import { Button } from './ui/Button';
-import { Input } from './ui/Input';
-import { Label } from './ui/Label';
-import type { Module, CreateModuleDto, UpdateModuleDto } from '../types/module';
+import { useState } from "react";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import type { Module, CreateModuleDto, UpdateModuleDto } from "../types/module";
+import { Textarea } from "@/components/ui/textarea";
 
 interface ModuleFormProps {
   courseId: string;
@@ -12,26 +13,21 @@ interface ModuleFormProps {
   isLoading?: boolean;
 }
 
-export const ModuleForm = ({ courseId, module, onSubmit, onCancel, isLoading }: ModuleFormProps) => {
+export const ModuleForm = ({
+  courseId,
+  module,
+  onSubmit,
+  onCancel,
+  isLoading,
+}: ModuleFormProps) => {
   const [formData, setFormData] = useState({
-    name: module?.name || '',
-    description: module?.description || '',
+    name: module?.name || "",
+    description: module?.description || "",
   });
-
-  useEffect(() => {
-    if (module) {
-      setFormData({
-        name: module.name,
-        description: module.description || '',
-      });
-    }
-  }, [module]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const submitData = module
-      ? formData
-      : { ...formData, course_id: courseId };
+    const submitData = module ? formData : { ...formData, course_id: courseId };
     await onSubmit(submitData);
   };
 
@@ -43,17 +39,20 @@ export const ModuleForm = ({ courseId, module, onSubmit, onCancel, isLoading }: 
           id="name"
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+          placeholder="Enter module name"
           required
         />
       </div>
 
       <div>
         <Label htmlFor="description">Description</Label>
-        <textarea
+        <Textarea
           id="description"
           value={formData.description}
-          onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-          className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-900 min-h-[100px]"
+          onChange={(e) =>
+            setFormData({ ...formData, description: e.target.value })
+          }
+          placeholder="Enter module description"
         />
       </div>
 
@@ -62,7 +61,7 @@ export const ModuleForm = ({ courseId, module, onSubmit, onCancel, isLoading }: 
           Cancel
         </Button>
         <Button type="submit" disabled={isLoading}>
-          {isLoading ? 'Saving...' : module ? 'Update Module' : 'Create Module'}
+          {isLoading ? "Saving..." : module ? "Update Module" : "Create Module"}
         </Button>
       </div>
     </form>

@@ -1,9 +1,9 @@
-import { apiClient } from './client';
-import type { User, CreateUserDto, UpdateUserDto } from '../../types/user';
+import { apiClient } from "./client";
+import type { User, CreateUserDto, UpdateUserDto } from "../../types/user";
 
 export const userApi = {
   getAll: async (): Promise<User[]> => {
-    const { data } = await apiClient.get('/user');
+    const { data } = await apiClient.get("/user");
     return data;
   },
 
@@ -17,17 +17,24 @@ export const userApi = {
     return data;
   },
 
-  create: async (user: CreateUserDto): Promise<{ success: boolean; message: string }> => {
-    const { data } = await apiClient.post('/user', user);
+  create: async (
+    user: CreateUserDto,
+  ): Promise<{ success: boolean; message: string }> => {
+    const { data } = await apiClient.post("/user", user);
     return data;
   },
 
-  update: async (id: string, user: UpdateUserDto): Promise<{ success: boolean; message: string; data?: User }> => {
+  update: async (
+    id: string,
+    user: UpdateUserDto,
+  ): Promise<{ success: boolean; message: string; data?: User }> => {
     const { data } = await apiClient.put(`/user/${id}`, user);
     return data;
   },
 
-  delete: async (id: string): Promise<{ success: boolean; message: string }> => {
+  delete: async (
+    id: string,
+  ): Promise<{ success: boolean; message: string }> => {
     const { data } = await apiClient.delete(`/user/${id}`);
     return data;
   },

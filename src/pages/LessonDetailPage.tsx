@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { ArrowLeft, Edit, Trash2, FileText, Loader2 } from "lucide-react";
-import { Button } from "../components/ui/Button";
-import { ConfirmDialog } from "../components/ui/ConfirmDialog";
+import { Button } from "../components/ui/button";
+import { ConfirmDialog } from "../components/ui/confirm-dialog";
 import { LessonEditDialog } from "../components/LessonEditDialog";
 import { useLesson, useDeleteLesson } from "../hooks/useLessons";
 
@@ -78,17 +78,14 @@ export const LessonDetailPage = () => {
 
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
           <div className="p-8">
-            <div className="flex items-start justify-between mb-6">
-              <div className="flex-1">
-                <div className="flex items-center gap-4 mb-2">
-                  <span className="flex items-center justify-center w-12 h-12 rounded-full bg-slate-100 text-slate-600 text-lg font-semibold">
-                    {lesson.order}
-                  </span>
-                  <h1 className="text-4xl font-bold text-slate-900">
-                    {lesson.name}
-                  </h1>
-                </div>
-              </div>
+             <div className="flex items-start justify-between mb-6">
+               <div className="flex-1">
+                 <div className="flex items-center gap-4 mb-2">
+                   <h1 className="text-4xl font-bold text-slate-900">
+                     {lesson.name}
+                   </h1>
+                 </div>
+               </div>
 
               <div className="flex gap-2">
                 <Button
@@ -126,14 +123,10 @@ export const LessonDetailPage = () => {
                   <dd className="text-slate-900 font-mono text-sm">
                     {lesson._id}
                   </dd>
-                </div>
-                <div className="flex justify-between py-3 border-b border-slate-100">
-                  <dt className="text-slate-600">Order</dt>
-                  <dd className="text-slate-900">{lesson.order}</dd>
-                </div>
-                {lesson.createdAt && (
-                  <div className="flex justify-between py-3 border-b border-slate-100">
-                    <dt className="text-slate-600">Created</dt>
+                 </div>
+                 {lesson.createdAt && (
+                   <div className="flex justify-between py-3 border-b border-slate-100">
+                     <dt className="text-slate-600">Created</dt>
                     <dd className="text-slate-900">
                       {new Date(lesson.createdAt).toLocaleDateString("en-US", {
                         year: "numeric",

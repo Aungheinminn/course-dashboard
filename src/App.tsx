@@ -13,6 +13,7 @@ import { ModuleDetailPage } from "./pages/ModuleDetailPage";
 import { ModuleLessonsPage } from "./pages/ModuleLessonsPage";
 import { LessonDetailPage } from "./pages/LessonDetailPage";
 import { LessonContentPage } from "./pages/LessonContentPage";
+import { MediaLibrary } from "./pages/MediaLibrary";
 
 function App() {
   return (
@@ -88,6 +89,16 @@ function App() {
                 <ProtectedRoute>
                   <Layout>
                     <LessonContentPage />
+                  </Layout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/media-library/"
+              element={
+                <ProtectedRoute>
+                  <Layout>
+                    <MediaLibrary />
                   </Layout>
                 </ProtectedRoute>
               }

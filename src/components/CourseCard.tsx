@@ -1,8 +1,8 @@
-import { Edit, Trash2, Eye } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import { Button } from './ui/Button';
-import type { Course } from '../types/course';
-import { formatDateShort } from '../lib/utils/dateFormatter';
+import { Edit, Trash2, Eye } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Button } from "./ui/button";
+import type { Course } from "../types/course";
+import { formatDateShort } from "../lib/utils/dateFormatter";
 
 interface CourseCardProps {
   course: Course;
@@ -12,10 +12,10 @@ interface CourseCardProps {
 
 export const CourseCard = ({ course, onEdit, onDelete }: CourseCardProps) => {
   const navigate = useNavigate();
-  
-  const getInstructorName = (instructor: Course['instructor_id']) => {
-    if (typeof instructor === 'string') return instructor;
-    return instructor?.username || 'N/A';
+
+  const getInstructorName = (instructor: Course["instructor_id"]) => {
+    if (typeof instructor === "string") return instructor;
+    return instructor?.username || "N/A";
   };
 
   const handleViewDetails = () => {
@@ -38,17 +38,17 @@ export const CourseCard = ({ course, onEdit, onDelete }: CourseCardProps) => {
             {course.name.charAt(0).toUpperCase()}
           </div>
         )}
-        
+
         {/* Status Badge */}
         <div className="absolute top-3 right-3">
           <span
             className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${
               course.is_published
-                ? 'bg-green-100 text-green-800'
-                : 'bg-yellow-100 text-yellow-800'
+                ? "bg-green-100 text-green-800"
+                : "bg-yellow-100 text-yellow-800"
             }`}
           >
-            {course.is_published ? 'Published' : 'Draft'}
+            {course.is_published ? "Published" : "Draft"}
           </span>
         </div>
       </div>
@@ -58,7 +58,7 @@ export const CourseCard = ({ course, onEdit, onDelete }: CourseCardProps) => {
         <h3 className="text-xl font-semibold text-gray-900 mb-2 line-clamp-1">
           {course.name}
         </h3>
-        
+
         {course.description && (
           <p className="text-sm text-gray-600 mb-4 line-clamp-2">
             {course.description}
@@ -70,23 +70,25 @@ export const CourseCard = ({ course, onEdit, onDelete }: CourseCardProps) => {
             <span className="text-gray-500">Category:</span>
             <span className="font-medium text-gray-900">{course.category}</span>
           </div>
-          
+
           <div className="flex items-center justify-between text-sm">
             <span className="text-gray-500">Level:</span>
             <span className="font-medium text-gray-900">{course.level}</span>
           </div>
-          
+
           <div className="flex items-center justify-between text-sm">
             <span className="text-gray-500">Instructor:</span>
             <span className="font-medium text-gray-900 truncate ml-2">
               {getInstructorName(course.instructor_id)}
             </span>
           </div>
-          
+
           {course.createdAt && (
             <div className="flex items-center justify-between text-sm">
               <span className="text-gray-500">Created:</span>
-              <span className="font-medium text-gray-900">{formatDateShort(course.createdAt)}</span>
+              <span className="font-medium text-gray-900">
+                {formatDateShort(course.createdAt)}
+              </span>
             </div>
           )}
         </div>
@@ -102,7 +104,7 @@ export const CourseCard = ({ course, onEdit, onDelete }: CourseCardProps) => {
             <Eye className="h-4 w-4 mr-1" />
             View
           </Button>
-          
+
           <div className="flex space-x-1">
             <Button
               size="sm"

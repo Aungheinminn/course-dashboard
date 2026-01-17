@@ -1,5 +1,5 @@
 import type React from "react"
-import { Button } from "./ui/Button"
+import { Button } from "./ui/button";
 import { Eye, Pencil, Trash2 } from "lucide-react"
 import { useNavigate } from "react-router-dom";
 import type { Lesson } from "../types/lesson";
