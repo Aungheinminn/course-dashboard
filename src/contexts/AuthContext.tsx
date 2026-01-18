@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     fetchUser();
-  });
+  }, []);
 
   const logout = useCallback(() => {
     localStorage.removeItem("accessToken");

@@ -14,6 +14,8 @@ import { ModuleLessonsPage } from "./pages/ModuleLessonsPage";
 import { LessonDetailPage } from "./pages/LessonDetailPage";
 import { LessonContentPage } from "./pages/LessonContentPage";
 import { MediaLibrary } from "./pages/MediaLibrary";
+import { QuestionGeneration } from "@/pages/QuestionGeneration";
+import { QuizLibrary } from "@/pages/QuizLibrary";
 
 function App() {
   return (
@@ -99,6 +101,27 @@ function App() {
                 <ProtectedRoute>
                   <Layout>
                     <MediaLibrary />
+                  </Layout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/question-generation"
+              element={
+                <ProtectedRoute>
+                  <Layout>
+                    <QuestionGeneration />
+                  </Layout>
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/quiz-library"
+              element={
+                <ProtectedRoute>
+                  <Layout>
+                    <QuizLibrary />
                   </Layout>
                 </ProtectedRoute>
               }
