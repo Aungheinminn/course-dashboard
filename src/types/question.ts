@@ -1,5 +1,5 @@
 // Question type definition matching backend schema
-export type QuestionType = 'true-false' | 'multi-choice' | 'word-bank';
+export type QuestionType = "true-false" | "multi-choice" | "word-bank";
 
 export interface QuestionOption {
   text: string;

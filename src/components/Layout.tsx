@@ -26,7 +26,6 @@ export const Layout = ({ children }: LayoutProps) => {
             className="px-2 py-1 border-2 border-slate-700 bg-slate-800 text-slate-100 rounded-xl"
           >
             Quiz Library
-
           </Link>
 
           <Link

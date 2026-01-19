@@ -19,23 +19,24 @@ type Tag = {
 };
 
 const availableTags: Tag[] = [
-  { 
-    id: "programming", 
-    label: "Programming", 
+  {
+    id: "programming",
+    label: "Programming",
     icon: "💻",
-    color: "bg-purple-100 text-purple-700 border-purple-200 hover:bg-purple-200"
+    color:
+      "bg-purple-100 text-purple-700 border-purple-200 hover:bg-purple-200",
   },
-  { 
-    id: "mathematics", 
-    label: "Mathematics", 
+  {
+    id: "mathematics",
+    label: "Mathematics",
     icon: "📐",
-    color: "bg-blue-100 text-blue-700 border-blue-200 hover:bg-blue-200"
+    color: "bg-blue-100 text-blue-700 border-blue-200 hover:bg-blue-200",
   },
-  { 
-    id: "science", 
-    label: "Science", 
+  {
+    id: "science",
+    label: "Science",
     icon: "🔬",
-    color: "bg-green-100 text-green-700 border-green-200 hover:bg-green-200"
+    color: "bg-green-100 text-green-700 border-green-200 hover:bg-green-200",
   },
 ];
 
@@ -69,11 +70,13 @@ export const TagFields: React.FC<TagFieldsProps> = ({
                   key={tag.id}
                   variant="outline"
                   className={`justify-start h-auto py-3 px-4 transition-all ${
-                    selected 
-                      ? `${tag.color} border-2 shadow-sm` 
-                      : 'hover:bg-slate-50 hover:border-slate-300'
+                    selected
+                      ? `${tag.color} border-2 shadow-sm`
+                      : "hover:bg-slate-50 hover:border-slate-300"
                   }`}
-                  onClick={() => handleSelectTag(tag.id, selected ? "deselect" : "select")}
+                  onClick={() =>
+                    handleSelectTag(tag.id, selected ? "deselect" : "select")
+                  }
                 >
                   <div className="flex items-center space-x-3 w-full">
                     <span className="text-xl shrink-0">{tag.icon}</span>
@@ -81,8 +84,16 @@ export const TagFields: React.FC<TagFieldsProps> = ({
                       {tag.label}
                     </span>
                     {selected && (
-                      <svg className="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      <svg
+                        className="w-5 h-5 shrink-0"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                          clipRule="evenodd"
+                        />
                       </svg>
                     )}
                   </div>

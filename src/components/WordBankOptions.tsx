@@ -44,14 +44,13 @@ export const WordBankOptions: React.FC<WordBankOptionsProps> = ({
             </p>
             <p className="text-xs text-blue-600 mt-1">
               {blankCount === 0
-                ? 'Use ___ (three underscores) in your question to create blanks'
+                ? "Use ___ (three underscores) in your question to create blanks"
                 : `Mark ${blankCount} word${blankCount === 1 ? "" : "s"} as correct answer${blankCount === 1 ? "" : "s"} below`}
             </p>
           </div>
         </div>
       </div>
 
-      {/* Word Bank */}
       <div>
         <div className="flex items-center justify-between mb-3">
           <label className="text-sm font-semibold text-slate-700">
@@ -73,7 +72,8 @@ export const WordBankOptions: React.FC<WordBankOptionsProps> = ({
           {question.options.map((option, index) => {
             const isCorrect = option.isCorrect;
             const correctIndex = isCorrect
-              ? question.options.filter((o, i) => o.isCorrect && i < index).length
+              ? question.options.filter((o, i) => o.isCorrect && i < index)
+                  .length
               : null;
 
             return (
@@ -115,7 +115,9 @@ export const WordBankOptions: React.FC<WordBankOptionsProps> = ({
                 <div className="flex-1">
                   <Input
                     value={option.text}
-                    onChange={(e) => handleOptionTextChange(index, e.target.value)}
+                    onChange={(e) =>
+                      handleOptionTextChange(index, e.target.value)
+                    }
                     placeholder={
                       isCorrect
                         ? `Correct answer for blank #${(correctIndex ?? 0) + 1}`
@@ -135,7 +137,9 @@ export const WordBankOptions: React.FC<WordBankOptionsProps> = ({
                       : "bg-slate-200 text-slate-600"
                   }`}
                 >
-                  {isCorrect ? `Blank #${(correctIndex ?? 0) + 1}` : "Distractor"}
+                  {isCorrect
+                    ? `Blank #${(correctIndex ?? 0) + 1}`
+                    : "Distractor"}
                 </div>
 
                 {/* Remove button */}
@@ -182,9 +186,12 @@ export const WordBankOptions: React.FC<WordBankOptionsProps> = ({
                 />
               </svg>
               <p className="text-sm text-amber-800">
-                <span className="font-semibold">Not enough correct answers:</span> You
-                need {blankCount} correct answer{blankCount === 1 ? "" : "s"} but only
-                have {correctAnswers.length}.
+                <span className="font-semibold">
+                  Not enough correct answers:
+                </span>{" "}
+                You need {blankCount} correct answer
+                {blankCount === 1 ? "" : "s"} but only have{" "}
+                {correctAnswers.length}.
               </p>
             </div>
           </div>
@@ -192,8 +199,8 @@ export const WordBankOptions: React.FC<WordBankOptionsProps> = ({
 
         {/* Help text */}
         <p className="text-xs text-slate-500 mt-3">
-          Check the box next to words that are correct answers. Unchecked words become
-          distractors.
+          Check the box next to words that are correct answers. Unchecked words
+          become distractors.
         </p>
       </div>
     </div>

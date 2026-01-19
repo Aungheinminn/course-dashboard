@@ -2,11 +2,13 @@ export interface Course {
   _id: string;
   name: string;
   description?: string;
-  instructor_id: string | {
-    _id: string;
-    username: string;
-    email: string;
-  };
+  instructor_id:
+    | string
+    | {
+        _id: string;
+        username: string;
+        email: string;
+      };
   category: string;
   level: string;
   thumbnail?: string;

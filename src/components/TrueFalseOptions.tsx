@@ -5,7 +5,10 @@ type TrueFalseOptionsProps = {
   handleOptionCorrectChange: (index: number) => void;
 };
 
-export const TrueFalseOptions:React.FC<TrueFalseOptionsProps> = ({ question, handleOptionCorrectChange }) => {
+export const TrueFalseOptions: React.FC<TrueFalseOptionsProps> = ({
+  question,
+  handleOptionCorrectChange,
+}) => {
   return (
     <div className="grid grid-cols-2 gap-3">
       {question.options.map((option, index) => (

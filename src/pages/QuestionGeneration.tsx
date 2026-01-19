@@ -21,7 +21,7 @@ export const QuestionGeneration = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const createQuestionMutation = useCreateQuestion();
-  
+
   const [question, setQuestion] = useState<CreateQuestion>({
     content: "",
     type: "multi-choice",
@@ -143,7 +143,7 @@ export const QuestionGeneration = () => {
         ...question,
         owner: user._id,
       });
-      
+
       // Reset form on success
       setQuestion({
         content: "",
@@ -152,7 +152,7 @@ export const QuestionGeneration = () => {
         explanation: "",
         tags: [],
       });
-      
+
       // Optional: Navigate to a questions list page or show success message
       alert("Question created successfully!");
     } catch (error) {
@@ -342,7 +342,9 @@ export const QuestionGeneration = () => {
                   size="lg"
                   className="bg-blue-600 hover:bg-blue-700 text-white px-8 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {createQuestionMutation.isPending ? "Creating..." : "Create Question"}
+                  {createQuestionMutation.isPending
+                    ? "Creating..."
+                    : "Create Question"}
                 </Button>
               </div>
             </div>

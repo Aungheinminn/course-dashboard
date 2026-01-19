@@ -1,9 +1,13 @@
-import { apiClient } from './client';
-import type { Question, CreateQuestionDto, UpdateQuestionDto } from '../../types/question';
+import { apiClient } from "./client";
+import type {
+  Question,
+  CreateQuestionDto,
+  UpdateQuestionDto,
+} from "../../types/question";
 
 export const questionApi = {
   getAll: async (): Promise<Question[]> => {
-    const { data } = await apiClient.get('/question');
+    const { data } = await apiClient.get("/question");
     return data;
   },
 
@@ -18,21 +22,28 @@ export const questionApi = {
   },
 
   getByTags: async (tags: string[]): Promise<Question[]> => {
-    const { data } = await apiClient.get(`/question/tags?tags=${tags.join(',')}`);
+    const { data } = await apiClient.get(
+      `/question/tags?tags=${tags.join(",")}`,
+    );
     return data;
   },
 
   create: async (question: CreateQuestionDto): Promise<Question> => {
-    const { data } = await apiClient.post('/question', question);
+    const { data } = await apiClient.post("/question", question);
     return data;
   },
 
-  update: async (id: string, question: UpdateQuestionDto): Promise<{ success: boolean; message: string; data?: Question }> => {
+  update: async (
+    id: string,
+    question: UpdateQuestionDto,
+  ): Promise<{ success: boolean; message: string; data?: Question }> => {
     const { data } = await apiClient.put(`/question/${id}`, question);
     return data;
   },
 
-  delete: async (id: string): Promise<{ success: boolean; message: string }> => {
+  delete: async (
+    id: string,
+  ): Promise<{ success: boolean; message: string }> => {
     const { data } = await apiClient.delete(`/question/${id}`);
     return data;
   },

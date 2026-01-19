@@ -1,0 +1,52 @@
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
+
+type GeneralFieldsProps = {
+  option: string;
+  handleSelectOption: (type: string) => void;
+};
+
+export const GeneralFields: React.FC<GeneralFieldsProps> = ({
+  option,
+  handleSelectOption,
+}) => {
+  const handleSelect = (type: string) => {
+    console.log(type);
+    handleSelectOption(type);
+  };
+  return (
+    <Accordion type="single" collapsible defaultValue="item-1">
+      <AccordionItem value="item-1">
+        <AccordionTrigger>General Fields</AccordionTrigger>
+        <AccordionContent className="w-full grid grid-cols-2">
+          <Button
+            disabled={option === "multi-choice"}
+            className={`${option === "multi-choice" ? "bg-gray-200 cursor-not-allowed" : ""} select-none`}
+            onClick={() => handleSelect("multi-choice")}
+          >
+            Multiple Choice
+          </Button>
+          <Button
+            disabled={option === "true-false"}
+            className={`${option === "true-false" ? "bg-gray-200 cursor-not-allowed" : ""} select-none`}
+            onClick={() => handleSelect("true-false")}
+          >
+            True/False
+          </Button>
+          <Button
+            disabled={option === "word-bank"}
+            className={`${option === "word-bank" ? "bg-gray-200 cursor-not-allowed" : ""} select-none`}
+            onClick={() => handleSelect("word-bank")}
+          >
+            Wordbank
+          </Button>
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
+  );
+};
