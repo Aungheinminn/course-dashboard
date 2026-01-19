@@ -22,17 +22,17 @@ export const Layout = ({ children }: LayoutProps) => {
         </h2>
         <div className="flex items-center justify-end gap-2">
           <Link
-            to="/quiz-library"
+            to="/assessment-library"
             className="px-2 py-1 border-2 border-slate-700 bg-slate-800 text-slate-100 rounded-xl"
           >
-            Quiz Library
+            Assessment Library
           </Link>
 
           <Link
-            to="/question-generation"
+            to="/quiz-generation"
             className="px-2 py-1 border-2 border-slate-700 bg-slate-800 text-slate-100 rounded-xl"
           >
-            Add Question
+            Add Quiz
           </Link>
           <Link
             to="/media-library"

@@ -1,13 +1,13 @@
-import { QuizTable } from "@/components/QuizTable";
+import { AssessmentTable } from "@/components/AssessmentTable";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
-type QuizStatus = "all" | "unpublished" | "published";
+type AssessmentStatus = "all" | "unpublished" | "published";
 
-export const QuizLibrary = () => {
-  const [status, setStatus] = useState<QuizStatus>("all");
+export const AssessmentLibrary = () => {
+  const [status, setStatus] = useState<AssessmentStatus>("all");
 
-  const handleStatusChange = (status: QuizStatus) => {
+  const handleStatusChange = (status: AssessmentStatus) => {
     setStatus(status);
   };
   return (
@@ -16,7 +16,7 @@ export const QuizLibrary = () => {
         <div className="bg-white border border-slate-200 rounded-xl flex justify-start items-center p-6 py-3">
           <div className="flex flex-col items-start justify-center">
             <b className="text-4xl">15</b>
-            <b className="text-xl text-gray-600">Published Quizzes</b>
+            <b className="text-xl text-gray-600">Published Assessments</b>
           </div>
         </div>
       </div>
@@ -24,7 +24,7 @@ export const QuizLibrary = () => {
         <div className="w-full flex justify-between items-end gap-y-3">
           <div className="flex flex-col gap-2">
             <h2 className="text-2xl font-semibold text-slate-900">
-              Quiz Library
+              Assessment Library
             </h2>
             <div className="px-1 py-1 bg-slate-200 rounded-sm gap-x-0.5">
               <Button
@@ -51,7 +51,7 @@ export const QuizLibrary = () => {
             + Add
           </Button>
         </div>
-        <QuizTable />
+        <AssessmentTable />
       </div>
     </div>
   );

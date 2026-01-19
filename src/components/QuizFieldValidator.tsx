@@ -4,29 +4,29 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import type { CreateQuestion } from "@/types/question";
+import type { CreateQuiz } from "@/types/quiz";
 
-type QuestionFieldValidatorProps = {
-  question: CreateQuestion;
+type QuizFieldValidatorProps = {
+  quiz: CreateQuiz;
 };
 
-export const QuestionFieldValidator: React.FC<QuestionFieldValidatorProps> = ({
-  question,
+export const QuizFieldValidator: React.FC<QuizFieldValidatorProps> = ({
+  quiz,
 }) => {
-  const hasCorrectAnswer = question.options.some((opt) => opt.isCorrect);
+  const hasCorrectAnswer = quiz.options.some((opt) => opt.isCorrect);
   const hasAllOptionsFilled =
-    question.type === "true-false" ||
-    question.options.every((opt) => opt.text.trim().length > 0);
+    quiz.type === "true-false" ||
+    quiz.options.every((opt) => opt.text.trim().length > 0);
 
   const blankCount =
-    question.type === "word-bank"
-      ? (question.content.match(/___/g) || []).length
+    quiz.type === "word-bank"
+      ? (quiz.content.match(/___/g) || []).length
       : 0;
-  const correctAnswerCount = question.options.filter(
+  const correctAnswerCount = quiz.options.filter(
     (opt) => opt.isCorrect,
   ).length;
   const wordBankValid =
-    question.type === "word-bank"
+    quiz.type === "word-bank"
       ? blankCount > 0 &&
         correctAnswerCount === blankCount &&
         hasAllOptionsFilled
@@ -34,33 +34,33 @@ export const QuestionFieldValidator: React.FC<QuestionFieldValidatorProps> = ({
 
   const validationItems = [
     {
-      label: "Question Type",
-      isValid: !!question.type,
-      description: "Select a question type",
+      label: "Quiz Type",
+      isValid: !!quiz.type,
+      description: "Select a quiz type",
     },
     {
-      label: "Question Content",
-      isValid: question.content.trim().length > 0,
-      description: "A question must have content",
+      label: "Quiz Content",
+      isValid: quiz.content.trim().length > 0,
+      description: "A quiz must have content",
     },
     {
       label: "Answer Options",
       isValid:
-        question.type === "word-bank"
-          ? question.options.length >= 1 && hasAllOptionsFilled
-          : question.options.length >= 2 && hasAllOptionsFilled,
+        quiz.type === "word-bank"
+          ? quiz.options.length >= 1 && hasAllOptionsFilled
+          : quiz.options.length >= 2 && hasAllOptionsFilled,
       description:
-        question.type === "true-false"
+        quiz.type === "true-false"
           ? "True/False options are set"
-          : question.type === "word-bank"
+          : quiz.type === "word-bank"
             ? "Add words for the word bank"
             : "Provide at least 2 options with text",
     },
     {
       label: "Correct Answer",
-      isValid: question.type === "word-bank" ? wordBankValid : hasCorrectAnswer,
+      isValid: quiz.type === "word-bank" ? wordBankValid : hasCorrectAnswer,
       description:
-        question.type === "word-bank"
+        quiz.type === "word-bank"
           ? blankCount === 0
             ? "Add ___ blanks to your question"
             : correctAnswerCount !== blankCount
@@ -70,12 +70,12 @@ export const QuestionFieldValidator: React.FC<QuestionFieldValidatorProps> = ({
     },
     {
       label: "Explanation",
-      isValid: question.explanation.trim().length > 0,
+      isValid: quiz.explanation.trim().length > 0,
       description: "Include an explanation for the answer",
     },
     {
       label: "Tags",
-      isValid: question.tags.length > 0,
+      isValid: quiz.tags.length > 0,
       description: "Add at least one category tag",
     },
   ];

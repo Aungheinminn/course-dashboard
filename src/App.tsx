@@ -14,8 +14,8 @@ import { ModuleLessonsPage } from "./pages/ModuleLessonsPage";
 import { LessonDetailPage } from "./pages/LessonDetailPage";
 import { LessonContentPage } from "./pages/LessonContentPage";
 import { MediaLibrary } from "./pages/MediaLibrary";
-import { QuestionGeneration } from "@/pages/QuestionGeneration";
-import { QuizLibrary } from "@/pages/QuizLibrary";
+import { QuizGeneration } from "@/pages/QuizGeneration";
+import { AssessmentLibrary } from "@/pages/AssessmentLibrary";
 
 function App() {
   return (
@@ -106,22 +106,22 @@ function App() {
               }
             />
             <Route
-              path="/question-generation"
+              path="/quiz-generation"
               element={
                 <ProtectedRoute>
                   <Layout>
-                    <QuestionGeneration />
+                    <QuizGeneration />
                   </Layout>
                 </ProtectedRoute>
               }
             />
 
             <Route
-              path="/quiz-library"
+              path="/assessment-library"
               element={
                 <ProtectedRoute>
                   <Layout>
-                    <QuizLibrary />
+                    <AssessmentLibrary />
                   </Layout>
                 </ProtectedRoute>
               }

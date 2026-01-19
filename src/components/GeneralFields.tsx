@@ -5,21 +5,21 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import type { QuestionType } from "@/types/question";
+import type { QuizType } from "@/types/quiz";
 
 type GeneralFieldsProps = {
-  option: QuestionType;
-  handleSelectOption: (type: QuestionType) => void;
+  option: QuizType;
+  handleSelectOption: (type: QuizType) => void;
 };
 
-type QuestionTypeOption = {
-  id: QuestionType;
+type QuizTypeOption = {
+  id: QuizType;
   label: string;
   icon: string;
   description: string;
 };
 
-const questionTypes: QuestionTypeOption[] = [
+const quizTypes: QuizTypeOption[] = [
   {
     id: "multi-choice",
     label: "Multiple Choice",
@@ -50,18 +50,18 @@ export const GeneralFields: React.FC<GeneralFieldsProps> = ({
         <AccordionTrigger className="px-6 py-4 hover:no-underline hover:bg-slate-50 transition-colors">
           <div className="flex items-center justify-between w-full pr-2">
             <span className="text-sm font-semibold text-slate-700 uppercase tracking-wide">
-              Question Type
+              Quiz Type
             </span>
             {option && (
               <span className="text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded-full font-semibold">
-                {questionTypes.find((qt) => qt.id === option)?.label}
+                {quizTypes.find((qt) => qt.id === option)?.label}
               </span>
             )}
           </div>
         </AccordionTrigger>
         <AccordionContent className="px-6 pb-4">
           <div className="grid grid-cols-1 gap-2">
-            {questionTypes.map((type) => {
+            {quizTypes.map((type) => {
               return (
                 <Button
                   key={type.id}

@@ -1,43 +1,43 @@
 import { apiClient } from "./client";
 import type {
-  Question,
-  CreateQuestionDto,
-  UpdateQuestionDto,
-} from "../../types/question";
+  Quiz,
+  CreateQuizDto,
+  UpdateQuizDto,
+} from "../../types/quiz";
 
-export const questionApi = {
-  getAll: async (): Promise<Question[]> => {
+export const quizApi = {
+  getAll: async (): Promise<Quiz[]> => {
     const { data } = await apiClient.get("/question");
     return data;
   },
 
-  getById: async (id: string): Promise<Question> => {
+  getById: async (id: string): Promise<Quiz> => {
     const { data } = await apiClient.get(`/question/${id}`);
     return data;
   },
 
-  getByOwner: async (ownerId: string): Promise<Question[]> => {
+  getByOwner: async (ownerId: string): Promise<Quiz[]> => {
     const { data } = await apiClient.get(`/question/owner/${ownerId}`);
     return data;
   },
 
-  getByTags: async (tags: string[]): Promise<Question[]> => {
+  getByTags: async (tags: string[]): Promise<Quiz[]> => {
     const { data } = await apiClient.get(
       `/question/tags?tags=${tags.join(",")}`,
     );
     return data;
   },
 
-  create: async (question: CreateQuestionDto): Promise<Question> => {
-    const { data } = await apiClient.post("/question", question);
+  create: async (quiz: CreateQuizDto): Promise<Quiz> => {
+    const { data } = await apiClient.post("/question", quiz);
     return data;
   },
 
   update: async (
     id: string,
-    question: UpdateQuestionDto,
-  ): Promise<{ success: boolean; message: string; data?: Question }> => {
-    const { data } = await apiClient.put(`/question/${id}`, question);
+    quiz: UpdateQuizDto,
+  ): Promise<{ success: boolean; message: string; data?: Quiz }> => {
+    const { data } = await apiClient.put(`/question/${id}`, quiz);
     return data;
   },
 

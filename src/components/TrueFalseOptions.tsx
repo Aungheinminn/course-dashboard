@@ -1,7 +1,7 @@
-import type { CreateQuestion } from "@/types/question";
+import type { CreateQuiz } from "@/types/quiz";
 
 type TrueFalseOptionsProps = {
-  question: CreateQuestion;
+  question: CreateQuiz;
   handleOptionCorrectChange: (index: number) => void;
 };
 

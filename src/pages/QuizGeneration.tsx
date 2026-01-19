@@ -1,6 +1,6 @@
 import { GeneralFields } from "@/components/GeneralFields";
 import { MultiChoiceOptions } from "@/components/MultiChoiceOptions";
-import { QuestionFieldValidator } from "@/components/QuestionFieldValidator";
+import { QuizFieldValidator } from "@/components/QuizFieldValidator";
 import { TagFields } from "@/components/TagFields";
 import { TagWrapper } from "@/components/TagWrapper";
 import { TrueFalseOptions } from "@/components/TrueFalseOptions";
@@ -8,21 +8,19 @@ import { WordBankOptions } from "@/components/WordBankOptions";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import type {
-  CreateQuestion,
-  QuestionOption,
-  QuestionType,
-} from "@/types/question";
+  CreateQuiz,
+  QuizOption,
+  QuizType,
+} from "@/types/quiz";
 import { useState } from "react";
-import { useCreateQuestion } from "@/hooks/useQuestions";
+import { useCreateQuiz } from "@/hooks/useQuizzes";
 import { useAuth } from "@/lib/utils/useAuth";
-import { useNavigate } from "react-router-dom";
 
-export const QuestionGeneration = () => {
-  const navigate = useNavigate();
+export const QuizGeneration = () => {
   const { user } = useAuth();
-  const createQuestionMutation = useCreateQuestion();
+  const createQuizMutation = useCreateQuiz();
 
-  const [question, setQuestion] = useState<CreateQuestion>({
+  const [quiz, setQuiz] = useState<CreateQuiz>({
     content: "",
     type: "multi-choice",
     options: [],
@@ -31,18 +29,18 @@ export const QuestionGeneration = () => {
   });
 
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setQuestion({ ...question, content: e.target.value });
+    setQuiz({ ...quiz, content: e.target.value });
   };
 
   const handleExplanationChange = (
     e: React.ChangeEvent<HTMLTextAreaElement>,
   ) => {
-    setQuestion({ ...question, explanation: e.target.value });
+    setQuiz({ ...quiz, explanation: e.target.value });
   };
 
-  const handleSelectOption = (type: QuestionType) => {
-    setQuestion((prev) => {
-      let newOptions: QuestionOption[] = [];
+  const handleSelectOption = (type: QuizType) => {
+    setQuiz((prev) => {
+      let newOptions: QuizOption[] = [];
 
       if (type === "true-false") {
         newOptions = [
@@ -68,12 +66,12 @@ export const QuestionGeneration = () => {
 
   const handleSelectTag = (tag: string, type: string) => {
     if (type === "select") {
-      setQuestion((prev) => ({
+      setQuiz((prev) => ({
         ...prev,
         tags: [...prev.tags, tag],
       }));
     } else {
-      setQuestion((prev) => ({
+      setQuiz((prev) => ({
         ...prev,
         tags: prev.tags.filter((item: string) => item !== tag),
       }));
@@ -81,7 +79,7 @@ export const QuestionGeneration = () => {
   };
 
   const handleAddOption = () => {
-    setQuestion((prev) => ({
+    setQuiz((prev) => ({
       ...prev,
       options: [
         ...prev.options,
@@ -91,7 +89,7 @@ export const QuestionGeneration = () => {
   };
 
   const handleRemoveOption = (index: number) => {
-    setQuestion((prev) => ({
+    setQuiz((prev) => ({
       ...prev,
       options: prev.options
         .filter((_, i) => i !== index)
@@ -100,7 +98,7 @@ export const QuestionGeneration = () => {
   };
 
   const handleOptionTextChange = (index: number, text: string) => {
-    setQuestion((prev) => ({
+    setQuiz((prev) => ({
       ...prev,
       options: prev.options.map((opt, i) =>
         i === index ? { ...opt, text } : opt,
@@ -109,8 +107,8 @@ export const QuestionGeneration = () => {
   };
 
   const handleOptionCorrectChange = (index: number) => {
-    setQuestion((prev) => {
-      if (question.type === "true-false" || question.type === "multi-choice") {
+    setQuiz((prev) => {
+      if (quiz.type === "true-false" || quiz.type === "multi-choice") {
         // Single correct answer - radio button behavior
         return {
           ...prev,
@@ -119,7 +117,7 @@ export const QuestionGeneration = () => {
             isCorrect: i === index,
           })),
         };
-      } else if (question.type === "word-bank") {
+      } else if (quiz.type === "word-bank") {
         // Multiple correct answers - checkbox behavior
         return {
           ...prev,
@@ -139,13 +137,13 @@ export const QuestionGeneration = () => {
     }
 
     try {
-      await createQuestionMutation.mutateAsync({
-        ...question,
+      await createQuizMutation.mutateAsync({
+        ...quiz,
         owner: user._id,
       });
 
       // Reset form on success
-      setQuestion({
+      setQuiz({
         content: "",
         type: "multi-choice",
         options: [],
@@ -153,45 +151,45 @@ export const QuestionGeneration = () => {
         tags: [],
       });
 
-      // Optional: Navigate to a questions list page or show success message
-      alert("Question created successfully!");
+      // Optional: Navigate to a quizzes list page or show success message
+      alert("Quiz created successfully!");
     } catch (error) {
-      console.error("Failed to create question:", error);
-      alert("Failed to create question. Please try again.");
+      console.error("Failed to create quiz:", error);
+      alert("Failed to create quiz. Please try again.");
     }
   };
 
   const isValid =
-    question.content.trim().length > 0 &&
-    question.options.length >= 1 &&
-    (question.type === "word-bank"
+    quiz.content.trim().length > 0 &&
+    quiz.options.length >= 1 &&
+    (quiz.type === "word-bank"
       ? (() => {
-          const blankCount = (question.content.match(/___/g) || []).length;
-          const correctAnswers = question.options.filter(
+          const blankCount = (quiz.content.match(/___/g) || []).length;
+          const correctAnswers = quiz.options.filter(
             (opt) => opt.isCorrect,
           );
           return (
             blankCount > 0 &&
             correctAnswers.length === blankCount &&
-            question.options.every((opt) => opt.text.trim().length > 0)
+            quiz.options.every((opt) => opt.text.trim().length > 0)
           );
         })()
-      : question.options.length >= 2 &&
-        question.options.some((opt) => opt.isCorrect) &&
-        (question.type !== "multi-choice" ||
-          question.options.every((opt) => opt.text.trim().length > 0))) &&
-    question.explanation.trim().length > 0 &&
-    question.tags.length > 0;
+      : quiz.options.length >= 2 &&
+        quiz.options.some((opt) => opt.isCorrect) &&
+        (quiz.type !== "multi-choice" ||
+          quiz.options.every((opt) => opt.text.trim().length > 0))) &&
+    quiz.explanation.trim().length > 0 &&
+    quiz.tags.length > 0;
 
   return (
     <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-slate-100 p-6">
       <div className="max-w-7xl mx-auto">
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-slate-800 mb-3 tracking-tight">
-            Create Question
+            Create Quiz
           </h1>
           <p className="text-slate-600 text-lg">
-            Design engaging questions for your course
+            Design engaging quiz questions for your course
           </p>
         </div>
 
@@ -203,36 +201,36 @@ export const QuestionGeneration = () => {
                   <span className="w-8 h-8 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center text-sm font-bold">
                     1
                   </span>
-                  Question Details
+                  Quiz Details
                 </h2>
 
                 <div className="space-y-6">
                   <div className="space-y-3">
                     <label className="block text-sm font-semibold text-slate-700">
-                      Question Content
+                      Quiz Content
                       <span className="text-red-500 ml-1">*</span>
                     </label>
                     <Textarea
-                      value={question.content}
+                      value={quiz.content}
                       onChange={handleContentChange}
-                      placeholder="Enter your question here..."
+                      placeholder="Enter your quiz question here..."
                       className="w-full min-h-25 resize-y focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       rows={4}
                     />
                     <p className="text-xs text-slate-500">
-                      Write a clear and concise question
+                      Write a clear and concise quiz question
                     </p>
                   </div>
 
                   {/* Options Section */}
-                  {question.type && (
+                  {quiz.type && (
                     <div className="space-y-3">
                       <div className="flex items-center justify-between">
                         <label className="block text-sm font-semibold text-slate-700">
                           Answer Options
                           <span className="text-red-500 ml-1">*</span>
                         </label>
-                        {question.type === "multi-choice" && (
+                        {quiz.type === "multi-choice" && (
                           <Button
                             type="button"
                             size="sm"
@@ -246,25 +244,25 @@ export const QuestionGeneration = () => {
                       </div>
 
                       <div className="space-y-3">
-                        {question.type === "true-false" ? (
+                        {quiz.type === "true-false" ? (
                           <TrueFalseOptions
-                            question={question}
+                            question={quiz}
                             handleOptionCorrectChange={
                               handleOptionCorrectChange
                             }
                           />
-                        ) : question.type === "multi-choice" ? (
+                        ) : quiz.type === "multi-choice" ? (
                           <MultiChoiceOptions
-                            question={question}
+                            question={quiz}
                             handleOptionCorrectChange={
                               handleOptionCorrectChange
                             }
                             handleOptionTextChange={handleOptionTextChange}
                             handleRemoveOption={handleRemoveOption}
                           />
-                        ) : question.type === "word-bank" ? (
+                        ) : quiz.type === "word-bank" ? (
                           <WordBankOptions
-                            question={question}
+                            question={quiz}
                             handleOptionCorrectChange={
                               handleOptionCorrectChange
                             }
@@ -275,17 +273,17 @@ export const QuestionGeneration = () => {
                         ) : null}
                       </div>
 
-                      {question.type === "multi-choice" && (
+                      {quiz.type === "multi-choice" && (
                         <p className="text-xs text-slate-500">
                           Click the circle to mark the correct answer
                         </p>
                       )}
-                      {question.type === "true-false" && (
+                      {quiz.type === "true-false" && (
                         <p className="text-xs text-slate-500">
                           Click on True or False to select the correct answer
                         </p>
                       )}
-                      {question.type === "word-bank" && (
+                      {quiz.type === "word-bank" && (
                         <p className="text-xs text-slate-500">
                           Use ___ (three underscores) in the question to create
                           blanks
@@ -301,7 +299,7 @@ export const QuestionGeneration = () => {
                       <span className="text-red-500 ml-1">*</span>
                     </label>
                     <Textarea
-                      value={question.explanation}
+                      value={quiz.explanation}
                       onChange={handleExplanationChange}
                       placeholder="Provide an explanation for the correct answer..."
                       className="w-full min-h-20 resize-y focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -313,12 +311,12 @@ export const QuestionGeneration = () => {
                   </div>
 
                   {/* Selected Tags Display */}
-                  {question.tags.length > 0 && (
+                  {quiz.tags.length > 0 && (
                     <div className="space-y-3">
                       <label className="block text-sm font-semibold text-slate-700">
                         Selected Categories
                       </label>
-                      <TagWrapper tags={question.tags} />
+                      <TagWrapper tags={quiz.tags} />
                     </div>
                   )}
                 </div>
@@ -338,13 +336,13 @@ export const QuestionGeneration = () => {
                 </div>
                 <Button
                   onClick={handleSubmit}
-                  disabled={!isValid || createQuestionMutation.isPending}
+                  disabled={!isValid || createQuizMutation.isPending}
                   size="lg"
                   className="bg-blue-600 hover:bg-blue-700 text-white px-8 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {createQuestionMutation.isPending
+                  {createQuizMutation.isPending
                     ? "Creating..."
-                    : "Create Question"}
+                    : "Create Quiz"}
                 </Button>
               </div>
             </div>
@@ -353,18 +351,18 @@ export const QuestionGeneration = () => {
           {/* Right Panel - Configuration */}
           <div className="space-y-4">
             <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-              <QuestionFieldValidator question={question} />
+              <QuizFieldValidator quiz={quiz} />
             </div>
 
             <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
               <GeneralFields
-                option={question.type}
+                option={quiz.type}
                 handleSelectOption={handleSelectOption}
               />
             </div>
             <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
               <TagFields
-                tags={question.tags}
+                tags={quiz.tags}
                 handleSelectTag={handleSelectTag}
               />
             </div>

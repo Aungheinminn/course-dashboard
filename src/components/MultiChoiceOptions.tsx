@@ -1,8 +1,8 @@
 import { Input } from "@/components/ui/input";
-import type { CreateQuestion } from "@/types/question";
+import type { CreateQuiz } from "@/types/quiz";
 
 type MultiChoiceOptionsProps = {
-  question: CreateQuestion;
+  question: CreateQuiz;
   handleOptionCorrectChange: (index: number) => void;
   handleOptionTextChange: (index: number, text: string) => void;
   handleRemoveOption: (index: number) => void;

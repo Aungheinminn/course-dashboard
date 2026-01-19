@@ -8,7 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-export const QuizTable = () => {
+export const AssessmentTable = () => {
   return (
     <Table>
       <TableHeader>
